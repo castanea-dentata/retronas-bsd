@@ -83,7 +83,7 @@ system_map:
     replayfpgaarcade: ''
     retrodeck: archimedes
     romm: acorn-archimedes
-    pretty_name: Acorn Achimedes
+    pretty_name: Acorn Archimedes
   - src: acorn/atom
     last: ''
     mister: AcornAtom
