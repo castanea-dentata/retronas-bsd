@@ -27,6 +27,9 @@
 
     - ansible.builtin.import_role:
         name: retronas.role.romdir
+
+    - ansible.builtin.import_role:
+        name: retronas.role.createdirs
       vars:
         top_level_paths: *top_level_paths
 

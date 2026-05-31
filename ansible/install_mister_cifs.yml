@@ -41,6 +41,9 @@
 
     - ansible.builtin.import_role:
         name: retronas.role.romdir
+
+    - ansible.builtin.import_role:
+        name: retronas.role.createdirs
       vars:
         top_level_paths: *top_level_paths
 
@@ -56,6 +59,9 @@
       ansible.builtin.file:
         dest: "{{ retronas_path }}/{{ item.1 }}/{{ item.0.src|lower }}"
         state: directory
+        mode: '2775'
+        owner: "{{ retronas_user }}"
+        group: "{{ retronas_group }}"
       loop: "{{ save_overrides|product(savedirs)|list }}"
 
     - name: "{{ my_name }} - create custom save links"

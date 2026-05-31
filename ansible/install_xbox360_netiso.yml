@@ -14,12 +14,12 @@
       - jq
 
     paths:
-      - { name: "xbox360", dest: "{{ retronas_path }}", owner: "{{ retronas_user }}", group: "{{ retronas_group }}" }
+      - { name: "xbox360", dest: "{{ retronas_path }}", owner: "{{ retronas_user }}", group: "{{ retronas_group }}", mode: "2755" }
 
     templates:
       - { name: "install_xbox360_netiso.sh", dest: "{{ retronas_root }}/scripts", mode: "0755" }
       - { name: "xbox360_netiso.service", dest: "/etc/systemd/system" }
-      - { name: "dummy.iso", dest: "{{ retronas_path }}/{{ system_key }}" }
+      - { name: "dummy.iso", dest: "{{ retronas_path }}/{{ system_key }}", owner: "{{ retronas_user }}", group: "{{ retronas_group }}" }
 
   tasks:
 

@@ -9,19 +9,18 @@
 - name: "{{ my_name }} - create our base"
   ansible.builtin.shell:
     cmd: |
-      mkdir -p {{ retronas_path }}
-      chown {{ retronas_user }}:{{ retronas_group }} {{ retronas_path }}
-      chmod 2755 {{ retronas_path }}
+      mkdir -p {{ retronas_path }}/{{ system_key if not system_key == 'src' }}
+      chown {{ retronas_user }}:{{ retronas_group }} {{ retronas_path }}/{{ system_key if not system_key == 'src' }}
+      chmod 2775 {{ retronas_path }}/{{ system_key if not system_key == 'src' }}
   become: true
   changed_when: false
 
-# retronas generic top level dirs
 - ansible.builtin.file:
-    path: "{{ retronas_path }}/{{ tlpi.name }}"
+    path: "{{ retronas_path }}/{{ system_key if not system_key == 'src' }}/{{ tlpi.name }}"
     owner: "{{ retronas_user }}"
     group: "{{ retronas_group }}"
     state: directory
-    mode: '2755'
+    mode: '2775'
   become: true
   loop: "{{ top_level_paths }}"
   loop_control:
@@ -64,70 +63,47 @@
     - system_key_dirs is defined
     - system_key_dirs is true
 
-- name: "{{ my_name }} - build layout list (set fact)"
-  ansible.builtin.set_fact:
-    path_list: "{{ path_list|default([]) + [ retronas_path + '/' + tlpsa + '/' + pl.0 ] }}"
-  loop: "{{ system_map_min }}"
-  loop_control:
-    loop_var: pl
-    label: "{{ pl.0 }}"
-  when:
-    - tlpsa is defined
-    - system_map_min is defined
-
-- name: "{{ my_name }} - build layout"
-  ansible.builtin.shell:
-    cmd: bash -c "mkdir -p {{ path_list|flatten|join(' ') }}"
-  become: true
-  become_user: "{{ retronas_user }}"
-  become_method: sudo
-  when: path_list is defined
-  changed_when: false
-
-- name: "{{ my_name }} - build systems directory layout (links) (set fact)"
-  ansible.builtin.set_fact:
-    link_list: "{{ link_list|default([]) + [ 'ln -sfT ' + retronas_path  + '/' + ll.1  + '/' + ll.0.src + ' ' + retronas_path  + '/' + ll.1 + '/' + ll.0.dest + ';' ] }}"
-  loop: "{{ system_links|product(tlp) }}"
-  loop_control:
-    loop_var: ll
-    label: "{{ ll.0.src }}"
-  when:
-    - system_links is defined
-    - tlp is defined
-
-- name: "{{ my_name }} - build systems directory layout (links)"
-  ansible.builtin.shell:
-    cmd: bash -c "{{ link_list|join('') }}"
-  when: link_list is defined
-  changed_when: false
-
-# src, system_key map
 - block:
-  - name: "{{ my_name }} - build top level"
-    ansible.builtin.file:
-      path: "{{ retronas_path }}/{{ system_key }}"
-      owner: "{{ retronas_user }}"
-      group: "{{ retronas_group }}"
-      state: directory
-      mode: "0775"
+  - name: "{{ my_name }} - build retronas layout list (set fact)"
+    ansible.builtin.set_fact:
+      path_list: "{{ path_list|default([]) + [ retronas_path ~ '/' ~ tlpsa ~ '/' ~ pl.0 ] }}"
+    loop: "{{ system_map_min }}"
+    loop_control:
+      loop_var: pl
+      label: "{{ pl.0 }}"
     when:
-      - system_key_dirs is defined
-      - system_key_dirs is true
+      - tlpsa is defined
+      - system_map_min is defined
 
-  - name: "{{ my_name }} - build top level share paths"
-    ansible.builtin.file:
-      path: "{{ retronas_path }}/{{ system_key }}/{{ item.name }}"
-      owner: "{{ retronas_user }}"
-      group: "{{ retronas_group }}"
-      state: directory
-      mode: "0775"
-    loop: "{{ top_level_paths }}"
+  - name: "{{ my_name }} - build retronas layout"
+    ansible.builtin.shell:
+      cmd: bash -c "mkdir -p {{ path_list|flatten|join(' ') }}"
+    become: true
+    become_user: "{{ retronas_user }}"
+    become_method: sudo
+    when: path_list is defined
+    changed_when: false
+
+  - name: "{{ my_name }} - build systems directory layout (links) (set fact)"
+    ansible.builtin.set_fact:
+      link_list: "{{ link_list|default([]) + [ 'ln -sfT ' + retronas_path  ~ '/' ~ ll.1  ~ '/' ~ ll.0.src ~ ' ' ~ retronas_path  ~ '/' ~ ll.1 ~ '/' ~ ll.0.dest ~ ';' ] }}"
+    loop: "{{ system_links|product(tlp) }}"
+    loop_control:
+      loop_var: ll
+      label: "{{ ll.0.src }}"
     when:
-      - top_level_paths is defined
-      - item.enabled is true
-      - system_key_dirs is defined
-      - system_key_dirs is true
+      - system_links is defined
+      - tlp is defined
 
+  - name: "{{ my_name }} - build systems directory layout (links)"
+    ansible.builtin.shell:
+      cmd: bash -c "{{ link_list|join('') }}"
+    when: link_list is defined
+    changed_when: false
+  when:
+    - system_key == 'src'
+
+- block:
   - name: "{{ my_name }} - setup directories with symlinks"
     include_tasks: link.yml
     when: nolink is not defined or nolink is false
@@ -150,3 +126,4 @@
 
   when:
     - system_key is defined
+    - system_key != 'src'

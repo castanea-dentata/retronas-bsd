@@ -26,9 +26,6 @@
     - name: "{{ my_name }} - Load RetroNAS config"
       ansible.builtin.include_vars: retronas_vars.yml
 
-    - name: "{{ my_name }} - Load RetroNAS systems"
-      ansible.builtin.include_vars: retronas_systems.yml
-
     - ansible.builtin.include_role:
         name: "{{ iroles }}"
       loop:

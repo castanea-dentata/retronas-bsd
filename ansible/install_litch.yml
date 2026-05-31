@@ -31,7 +31,7 @@
       loop_control:
         loop_var: "iroles"
 
-    - name: "{{ my_name }} - create GOG dir"
+    - name: "{{ my_name }} - create litch dir"
       ansible.builtin.file:
         path: "{{ retronas_path }}/itchio"
         owner: "{{ retronas_user }}"
