@@ -4,26 +4,8 @@
 #
 - name: "{{ my_name }} - checking firewalld is installed"
   ansible.builtin.stat:
-    path: /etc/firewalld/zones/retro.xml
+    path: /etc/firewalld/zones/retronas-retro.xml
   register: firewalld_services
-
-- name: "{{ my_name }} - reload to pick up any new config"
-  ansible.builtin.service:
-    name: "firewalld"
-    state: reloaded
-  when: firewalld_services.stat.exists
-
-- name: "{{ my_name }} - enable firewall rule (port)"
-  ansible.posix.firewalld:
-    zone: "{{ item.zone | default('retro') }}"
-    port: "{{ item.port }}/{{ item.protocol }}"
-    permanent: "{{ item.permanent | default('true') }}"
-    state: "{{ item.state | default('enabled') }}"
-    immediate: true
-  loop: "{{ firewalld_ports }}"
-  when:
-    - firewalld_ports is defined
-    - firewalld_services.stat.exists
 
 - name: "{{ my_name }} - enable firewall rule (service)"
   ansible.builtin.template:
@@ -37,9 +19,27 @@
     - firewalld_templates is defined
     - firewalld_services.stat.exists
 
+- name: "{{ my_name }} - reload to pick up any new config"
+  ansible.builtin.service:
+    name: "firewalld"
+    state: reloaded
+  when: firewalld_services.stat.exists
+
+- name: "{{ my_name }} - enable firewall rule (port)"
+  ansible.posix.firewalld:
+    zone: "retronas-{{ item.zone | default('retro') }}"
+    port: "{{ item.port }}/{{ item.protocol }}"
+    permanent: "{{ item.permanent | default('true') }}"
+    state: "{{ item.state | default('enabled') }}"
+    immediate: true
+  loop: "{{ firewalld_ports }}"
+  when:
+    - firewalld_ports is defined
+    - firewalld_services.stat.exists
+
 - name: "{{ my_name }} - enable firewall rule (service)"
   ansible.posix.firewalld:
-    zone: "{{ item.zone | default('retro') }}"
+    zone: "retronas-{{ item.zone | default('retro') }}"
     service: "{{ item.service | default('ssh') }}"
     permanent: true
     state: enabled

@@ -21,10 +21,10 @@
       - { name: "mtcp-netdrive.sh", dest: "{{ retronas_root }}/scripts", mode: "0755", force: "yes" }
 
     firewalld_rules:
-      - { zones: retro, service: mtcp-netdrive }
+      - { zones: retro, service: retronas-mtcp-netdrive }
 
     firewalld_templates:
-      - mtcp-netdrive
+      - { name: retronas-mtcp-netdrive }
 
     my_services:
       - mtcp-netdrive

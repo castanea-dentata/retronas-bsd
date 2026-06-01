@@ -19,10 +19,10 @@
       - { name: "retro-aim-server.service", dest: "/etc/systemd/system/" }
 
     firewalld_rules:
-      - { zones: retro, service: retroaimserver }
+      - { zones: retro, service: retronas-retroaimserver }
 
     firewalld_templates:
-      - retroaimserver
+      - { name: retronas-retroaimserver }
 
     settings_env:
       - { regex: "^export OSCAR_HOST=.*", line: "export OSCAR_HOST={{ retronas_net_retro_ip }}" }

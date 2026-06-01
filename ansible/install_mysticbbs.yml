@@ -24,10 +24,10 @@
       - { name: "create_filebone_na.py", dest: "/opt/mysticbbs", force: "yes" }
 
     firewalld_rules:
-      - { zones: retro, service: mysticbbs }
+      - { zones: retro, service: retronas-mysticbbs }
 
-    firewall_templates:
-      - mysticbbs
+    firewalld_templates:
+      - { name: retronas-mysticbbs }
 
   tasks:
 
