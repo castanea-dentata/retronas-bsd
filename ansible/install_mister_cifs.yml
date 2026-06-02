@@ -28,6 +28,18 @@
     systemd_units:
       - { name: "retronas-mister-dirs", type: 'service', state: "stopped", enabled: "no", restart: "no", instance: "no" }
       - { name: "retronas-mister-dirs", type: 'timer',   state: "stopped", enabled: "no", restart: "no", instance: "no" }
+    
+    internal_symlinks:
+      - { src: 'nintendo/gameandwatch',     dest: 'Game And Watch' }
+      - { src: 'sega/gamegear',             dest: 'GameGear2P' }
+      - { src: 'atari/st',                  dest: 'AtariSTUSERIO2' }
+      - { src: 'nintendo/gameboyadvance',   dest: 'GBA_accuracy' }
+      - { src: 'commodore/amiga',           dest: 'MinimigUSERIO2' }
+      - { src: 'snk/neogeo',                dest: 'NeoGeo_24MHz_cpu_only' }
+      - { src: 'sony/playstation1',         dest: 'PSX_DualSDRAM' }
+      - { src: 'sega/saturn',               dest: 'Saturn_DualSDRAM' }
+      - { src: 'sharp/x68000',              dest: 'X68000USERIO2' }
+      - { src: 'other/intel_x86',           dest: 'ao486USERIO2' }
 
     dirs_only: false
     savedirs:
