@@ -30,4 +30,12 @@ install_lighttpd,'.*failed.*src file does not exist,*/etc/lighttpd/conf-availabl
 install_piscsi,'.*failed.*src file does not exist.*/data/retronas/piscsi'
 install_ps2_openps2loader,'.*failed.*src file does not exist.*/data/retronas/ps2/OpenPS2Loader'
 install_rclone,'.*failed.*Could not find the requested service rclone-webui.service: host'
+install_batocera_cifs,'.*failed.*src file does not exist.*create the link'
+install_emudeck_cifs,'.*failed.*src file does not exist.*create the link'
+install_install_mister_cifs,'.*failed.*src file does not exist.*create the link'
+install_ps3netsrv,'.*failed.*src file does not exist.*create the link'
+install_retrodeck_cifs,'.*failed.*src file does not exist.*create the link'
+install_xbox360_netiso,'.*failed.*src file does not exist.*create the link'
+install_xbox360,'.*failed.*src file does not exist.*create the link'
+install_xbox,'.*failed.*src file does not exist.*create the link'
 

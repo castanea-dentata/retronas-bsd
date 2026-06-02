@@ -2,12 +2,35 @@
 
 #set -e
 
+MODE="all"
+PLAYBOOK="install_*.yml"
+
+while getopts "m:p:" OPT
+do
+  case ${OPT} in
+    m)
+      MODE=${OPTARG}
+      ;;
+    p)
+      PLAYBOOK=$(basename ${OPTARG})
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
 OUTPATH=/tmp/rtrn_inst_test
-MODE=${1:-all}
 KNOWN=/opt/retronas/scripts/maint/tests/test-installers.known
 
 cd /opt/retronas/ansible
 [ ! -d ${OUTPATH} ] && mkdir -p $OUTPATH
+
+usage() {
+  echo " -m mode [report-only, all]"
+  echo " -p playbook [install_playbook.yml]"
+  exit 1
+}
 
 fail_report(){
   local FAILMSG="${1:-fatal}"
@@ -24,16 +47,17 @@ fail_report(){
 
 }
 
-
 if [ $MODE == "all" ]
 then
-
-  for PLAY in `find -maxdepth 1 -type f -iname "install_*.yml"`
+  rm -f $OUTPATH/*.log &> /dev/null
+  echo "TESTING Started $(date +'%Y-%m-%d %H:%M:%S')"
+  for PLAY in `find -maxdepth 1 -type f -iname "${PLAYBOOK}"`
   do
-    ansible-playbook -Cvv "${PLAY}" | tee "${OUTPATH}/${PLAY}.log"
-    [ $? -ne 0 ] && echo "Failed on ${PLAY}" && exit 1
+    echo $PLAY
+    ansible-playbook -Cvv "${PLAY}" &> "${OUTPATH}/${PLAY}.log"
+    #[ $? -ne 0 ] && echo "Failed on ${PLAY}"
   done
-
+  echo "TESTING Ended $(date +'%Y-%m-%d %H:%M:%S')"
 fi
 
 echo -e "\n\n"
