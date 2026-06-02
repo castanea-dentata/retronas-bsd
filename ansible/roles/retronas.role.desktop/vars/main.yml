@@ -22,9 +22,10 @@ systemd_units:
   - { name: "desktop", type: 'service', state: "started", enabled: "yes", restart: "yes", instance: "no" }
 
 templates:
-  - { name: "start_desktop.sh", dest: "{{ retronas_root }}/bin", mode: "0755" }
-  - { name: "desktop.service", dest: "/etc/systemd/system" }
+  - { name: "start_desktop.sh", dest: "{{ retronas_root }}/bin", mode: "0755", force: true }
+  - { name: "desktop.service", dest: "/etc/systemd/system", force: true }
   - { name: "retronas-menu", dest: "/etc/X11/fluxbox", force: false }
+  - { name: "99-retronas-desktop.conf", dest: "/etc/nginx/sites-enabled", force: true }
 
 patches:
   - { name: "webaudio.js", dest: "/opt/novnc/core/", force: true }

@@ -12,8 +12,8 @@ packages:
 - { name: "{{ my_name }}", state: "latest" }
 
 templates:
-- { name: "10-retronas.conf",         dest: "{{ nginx_sites_available }}",  mode: "0640", enable: "yes" }
-- { name: "99-retronas-files.conf",   dest: "{{ nginx_sites_available }}",  mode: "0640", enable: "yes" }
+- { name: "10-retronas.conf",         dest: "{{ nginx_sites_available }}",  mode: "0640", enable: "yes", force: true }
+- { name: "99-retronas-files.conf",   dest: "{{ nginx_sites_available }}",  mode: "0640", enable: "yes", force: true }
 
 sites_disable:
 - "default"

@@ -2,12 +2,16 @@
 - name: "{{ my_name }} - Load RetroNAS config"
   ansible.builtin.include_vars: retronas_vars.yml
 
-- ansible.builtin.import_role:
-    name: retronas.role.package.latest
-
-- ansible.builtin.import_role:
-    name: retronas.role.templates
-  notify: "{{ my_name }} - Restart service"
+- ansible.builtin.include_role:
+    name: "{{ desktopi }}"
+  loop:
+    - retronas.role.package.latest
+    - retronas.role.templates
+    - retronas.role.firewalld.port
+    - retronas.role.nginx
+    - retronas.role.x11vnc
+  loop_control:
+    loop_var: desktopi
 
 - name: "{{ my_name }} - clone novnc repo"
   ansible.builtin.git:
