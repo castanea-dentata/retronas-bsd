@@ -37,3 +37,6 @@ config:
   - { filename: "/etc/pulse/client.conf", option: "default-server=unix:/tmp/pulseaudio.socket", value: "" }
   - { filename: "/etc/X11/fluxbox/fluxbox.menu-user", option: "[include] (/etc/X11/fluxbox/retronas-menu)", value: "", before: "[end]", after: "[begin].*" }
 
+firewalld_ports:
+  - { port: 8086, protocol: "tcp", zone: "retro" }
+  - { port: 8086, protocol: "tcp", zone: "modern" }
