@@ -2,6 +2,11 @@
 my_name: "Generic ROM dir"
 my_file: "install_romdir"
 module_name: "romdir"
+system_key: "src"
 
 top_level_paths:
-  - { name: "roms", enabled: yes, systems: yes }
+  - { name: "roms",       generic: "roms",        enabled: yes, systems: yes }
+  - { name: "bios",       generic: "bios",        enabled: yes, systems: yes }
+  - { name: "saves",      generic: "saves",       enabled: yes, systems: yes }
+  - { name: "savestates", generic: "savestates",  enabled: yes, systems: yes }
+  - { name: "wallpapers", generic: "wallpapers",  enabled: yes, systems: no }

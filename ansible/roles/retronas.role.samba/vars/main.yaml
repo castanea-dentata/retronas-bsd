@@ -35,6 +35,6 @@ templates:
 
 firewalld_rules:
   - { zone: "retro",  service: "samba" }
-  - { zone: "modern", service: "samba-modern" }
+  - { zone: "modern", service: "retronas-samba-modern" }
 
 changed: false

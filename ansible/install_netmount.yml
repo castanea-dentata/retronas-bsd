@@ -12,6 +12,10 @@
       - python3
       - python3-yaml
 
+    paths:
+      - { name: "dos", dest: "{{ retronas_path }}", owner: "{{ retronas_user }}", group: "{{ retronas_group }}", mode: "2755" }
+      - { name: "netmount", dest: "{{ retronas_path }}/config", owner: "{{ retronas_user }}", group: "{{ retronas_group }}", mode: "2755" }
+
     systemd_units:
       - { name: "netmount-drives-retronas", type: 'service', state: "started", enabled: "yes", restart: "yes", instance: "no" }
 
@@ -19,41 +23,23 @@
       - { name: "{{ my_file }}.sh",         dest: "{{ retronas_root }}/scripts",         mode: "0755" }
       - { name: "netmount-confman.py",      dest: "{{ retronas_root }}/scripts",         mode: "0755" }
       - { name: "netmount-confman.sh",      dest: "{{ retronas_root }}/scripts",         mode: "0755" }
-      - { name: "retronas.yaml",            dest: "{{ retronas_path }}/config/netmount", mode: "0755" }
-
-    firewalld_rules:
-      - { zones: retro, service: netmount }
-
-    paths:
-        - dos
-        - config/netmount
+      - { name: "retronas.yaml",            dest: "{{ retronas_path }}/config/netmount", owner: "{{ retronas_user }}", group: "{{ retronas_group }}", mode: "0644" }
 
   tasks:
-
-    - name: "{{ my_name }} - Include systems map"
-      ansible.builtin.include_vars: "retronas_systems.yml"
 
     - name: "{{ my_name }} - Load RetroNAS config"
       ansible.builtin.include_vars: retronas_vars.yml
 
-    - ansible.builtin.import_role:
-        name: retronas.role.romdir
-
-    - ansible.builtin.import_role:
-        name: retronas.role.package.latest
-
-    - name: "{{ my_name }} - build top level"
-      ansible.builtin.file:
-        path: "{{ retronas_path }}/{{ item }}"
-        owner: "{{ retronas_user }}"
-        group: "{{ retronas_group }}"
-        state: directory
-        mode: "0775"
-      loop: "{{ paths }}"
-      notify: "{{ my_name }} - Restart service"
-
-    - ansible.builtin.import_role:
-        name: retronas.role.templates
+    - ansible.builtin.include_role:
+        name: "{{ iroles }}"
+      loop:
+        - retronas.role.romdir
+        - retronas.role.paths
+        - retronas.role.package.latest
+        - retronas.role.templates
+        - retronas.role.update-user
+      loop_control:
+        loop_var: "iroles"
 
     - name: "{{ my_name }} - Install from git"
       ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
@@ -73,9 +59,6 @@
       when:
         - item.instance == 'no'
       notify: "{{ my_name }} - Restart service"
-
-    - ansible.builtin.import_role:
-        name: retronas.role.firewalld.port
 
     - ansible.builtin.import_role:
         name: retronas.role.system-config

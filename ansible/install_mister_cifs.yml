@@ -7,8 +7,9 @@
     my_file: "install_mister_cifs"
     module_name: "mister_cifs"
     system_key: "mister"
+    system_key_dirs: true
 
-    top_level_paths:
+    top_level_paths: &top_level_paths
       - { name: "games",      enabled: yes,  generic: "roms",        systems: yes }
       - { name: "saves",      enabled: yes,  generic: "saves",       systems: yes }
       - { name: "savestates", enabled: yes,  generic: "savestates",  systems: yes }
@@ -27,6 +28,18 @@
     systemd_units:
       - { name: "retronas-mister-dirs", type: 'service', state: "stopped", enabled: "no", restart: "no", instance: "no" }
       - { name: "retronas-mister-dirs", type: 'timer',   state: "stopped", enabled: "no", restart: "no", instance: "no" }
+    
+    internal_symlinks:
+      - { src: 'nintendo/gameandwatch',     dest: 'Game And Watch' }
+      - { src: 'sega/gamegear',             dest: 'GameGear2P' }
+      - { src: 'atari/st',                  dest: 'AtariSTUSERIO2' }
+      - { src: 'nintendo/gameboyadvance',   dest: 'GBA_accuracy' }
+      - { src: 'commodore/amiga',           dest: 'MinimigUSERIO2' }
+      - { src: 'snk/neogeo',                dest: 'NeoGeo_24MHz_cpu_only' }
+      - { src: 'sony/playstation1',         dest: 'PSX_DualSDRAM' }
+      - { src: 'sega/saturn',               dest: 'Saturn_DualSDRAM' }
+      - { src: 'sharp/x68000',              dest: 'X68000USERIO2' }
+      - { src: 'other/intel_x86',           dest: 'ao486USERIO2' }
 
     dirs_only: false
     savedirs:
@@ -42,18 +55,25 @@
         name: retronas.role.romdir
 
     - ansible.builtin.import_role:
-        name: retronas.role.extradirs
+        name: retronas.role.createdirs
+      vars:
+        top_level_paths: *top_level_paths
 
-    - ansible.builtin.import_role:
-        name: retronas.role.samba
-
-    - ansible.builtin.import_role:
-        name: retronas.role.samba.system
+    - ansible.builtin.include_role:
+        name: "{{ iroles }}"
+      loop:
+        - retronas.role.samba
+        - retronas.role.samba.system
+      loop_control:
+        loop_var: "iroles"
 
     - name: "{{ my_name }} - create custom save directories"
       ansible.builtin.file:
         dest: "{{ retronas_path }}/{{ item.1 }}/{{ item.0.src|lower }}"
         state: directory
+        mode: '2775'
+        owner: "{{ retronas_user }}"
+        group: "{{ retronas_group }}"
       loop: "{{ save_overrides|product(savedirs)|list }}"
 
     - name: "{{ my_name }} - create custom save links"
@@ -69,9 +89,3 @@
 
     - ansible.builtin.import_role:
         name: retronas.role.system-config
-
-  handlers:
-
-    - name: "{{ my_name }} daemon-reload"
-      ansible.builtin.systemd:
-        daemon_reload: true

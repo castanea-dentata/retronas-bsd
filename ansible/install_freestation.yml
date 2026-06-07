@@ -7,8 +7,9 @@
     my_file: "install_{{ my_name }}"
     module_name: "freestation"
     system_key: "freestation"
+    system_key_dirs: true
 
-    top_level_paths:
+    top_level_paths: &top_level_paths
       - { name: "games",      enabled: yes,  generic: "roms",        systems: yes }
       - { name: "bios",       enabled: yes,  generic: "bios",        systems: yes }
 
@@ -25,16 +26,16 @@
         name: retronas.role.romdir
 
     - ansible.builtin.import_role:
-        name: retronas.role.extradirs
+        name: retronas.role.createdirs
+      vars:
+        top_level_paths: *top_level_paths
 
-    - ansible.builtin.import_role:
-        name: retronas.role.nfs
-
-    - ansible.builtin.import_role:
-        name: retronas.role.samba
-
-    - ansible.builtin.import_role:
-        name: retronas.role.samba.system
-
-    - ansible.builtin.import_role:
-        name: retronas.role.system-config
+    - ansible.builtin.include_role:
+        name: "{{ iroles }}"
+      loop:
+        - retronas.role.nfs
+        - retronas.role.samba
+        - retronas.role.samba.system
+        - retronas.role.system-config
+      loop_control:
+        loop_var: "iroles"

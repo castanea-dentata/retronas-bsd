@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -eu
+
+NOVNC=/opt/novnc/scripts
+export DISPLAY=:10
+WIDTH=1440
+HEIGHT=900
+COLOUR=16
+
+# start framebuffer server with fluxbox
+/usr/bin/Xvfb $DISPLAY -screen 0 ${WIDTH}x${HEIGHT}x${COLOUR} &
+/usr/bin/startfluxbox &
+
+# vnc
+/usr/bin/x11vnc -bg -forever -shared &
+/opt/novnc/utils/novnc_proxy --vnc localhost:5900 --listen localhost:18083

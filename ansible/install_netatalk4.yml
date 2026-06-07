@@ -150,18 +150,19 @@
         state: latest
       when: ansible_distribution == 'Ubuntu'
 
-    - ansible.builtin.import_role:
-        name: retronas.role.romdir
-
-    - ansible.builtin.import_role:
-        name: retronas.role.paths
-
-    - ansible.builtin.import_role:
-        name: retronas.role.templates
-      notify: "{{ my_name }} - Restart service"
+    - ansible.builtin.include_role:
+        name: "{{ nti }}"
+      loop:
+        - retronas.role.romdir
+        - retronas.role.paths
+        - retronas.role.templates
+      loop_control:
+        loop_var: nti
 
     - name: "{{ my_name }} - install from source"
       ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
+      failed_when:
+        - result.rc >= 1
 
     - name: "{{ my_name }} - configure"
       ansible.builtin.ini_file:

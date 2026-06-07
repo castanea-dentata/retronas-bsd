@@ -83,7 +83,7 @@ system_map:
     replayfpgaarcade: ''
     retrodeck: archimedes
     romm: acorn-archimedes
-    pretty_name: Acorn Achimedes
+    pretty_name: Acorn Archimedes
   - src: acorn/atom
     last: ''
     mister: AcornAtom
@@ -2931,6 +2931,7 @@ system_map:
     batocera: enterprise
     recalbox: ''
     retroarch: Enterprise - 128
+    ops2l: ''
     ps3netsrv: ''
     fspd: ''
     emuelec: ''

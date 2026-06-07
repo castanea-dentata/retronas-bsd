@@ -8,5 +8,5 @@ packages:
   - cockpit-networkmanager
 
 firewalld_rules:
-  - { zone: "retro" }
-  - { zone: "modern" }
+  - { service: "cockpit", zone: "retro" }
+  - { service: "cockpit", zone: "modern" }
