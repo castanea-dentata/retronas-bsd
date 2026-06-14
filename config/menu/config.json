@@ -2,7 +2,7 @@
     "menu": 
     {
         "title": "Configuration",
-        "description": "Please select a configuration||NOTE: changes to these settings may require reinstallation of tools||Current RetroNAS settings| User/Group: \"${OLDRNUSER}\":\"${OLDRNGROUP}\"| Directory: \"${OLDRNPATH}\"| Branch: \"${OLDRNBRANCH}\"| \"${IPADDMSG}\"",
+        "description": "Please select a configuration||NOTE: changes to these settings may require reinstallation of tools||Current RetroNAS settings| User/Group: \"${OLDRNUSER}\":\"${OLDRNGROUP}\"| Directory: \"${OLDRNPATH}\"| Branch: \"${OLDRNBRANCH}\" [${COMMIT}] | \"${IPADDMSG}\"",
         "id":"config",
         "prompt": "Change",
         "type": "menu",
