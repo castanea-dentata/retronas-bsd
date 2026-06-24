@@ -45,18 +45,22 @@
       debian11:
         - libmysqlclient-dev
         - libtracker-sparql-2.0-dev
+        - libtirpc3
       debian12:
         - default-libmysqlclient-dev
         - libtracker-sparql-3.0-dev
+        - libtirpc3
       debian13:
         - default-libmysqlclient-dev
         - libtracker-sparql-3.0-dev
+        - libtirpc3t64
 
 
     packages_ubuntu:
       - libmysqlclient-dev
       - libtracker-sparql-2.0-dev
       - libtracker-miner-2.0-dev
+      - libtirpc3
 
     my_services:
       - avahi-daemon
