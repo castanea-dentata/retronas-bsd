@@ -6,10 +6,11 @@
     name: "{{ desktopi }}"
   loop:
     - retronas.role.package.latest
+    - retronas.role.x11vnc
+    - retronas.role.nginx
     - retronas.role.templates
     - retronas.role.firewalld.port
-    - retronas.role.nginx
-    - retronas.role.x11vnc
+    - retronas.role.nginx             # this run twice to get services up after templates are dropped
   loop_control:
     loop_var: desktopi
 

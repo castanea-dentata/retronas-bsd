@@ -9,6 +9,7 @@ paths:
 
 packages:
 - { name: "lighttpd", state: "absent" }
+- { name: "{{ my_name }}-common", state: "latest" }
 - { name: "{{ my_name }}", state: "latest" }
 
 templates:
