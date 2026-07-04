@@ -42,7 +42,7 @@
         loop_var: "iroles"
 
     - name: "{{ my_name }} - Install from git"
-      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
+      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh"
       args:
         creates: "/opt/netmount/netmount"
 
@@ -74,4 +74,3 @@
       when:
         - item.restart == 'yes'
         - item.instance == 'no'
-

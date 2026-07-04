@@ -39,7 +39,7 @@
         loop_var: "iroles"
 
     - name: "{{ my_name }} - Install from source code"
-      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
+      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh"
       args:
         creates: "{{ retronas_root }}/bin/{{ my_name }}"
       notify: "{{ my_name }} - Restart service"

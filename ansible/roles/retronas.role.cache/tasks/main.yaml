@@ -17,8 +17,7 @@
   ansible.builtin.file:
     path: "{{ retronas_cache_file }}"
     state: absent
-  become: yes
-  when: 
+  become: true
+  when:
     - ansible_cache_age.stat.exists is true
     - ansible_cache_age.stat.mtime < retronas_system_age.stat.mtime
-

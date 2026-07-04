@@ -164,7 +164,7 @@
         loop_var: nti
 
     - name: "{{ my_name }} - install from source"
-      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
+      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh"
       failed_when:
         - result.rc >= 1
 

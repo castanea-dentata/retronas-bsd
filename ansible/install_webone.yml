@@ -52,7 +52,7 @@
 
     - name: "{{ my_name }} - Run installer"
       ansible.builtin.shell:
-        cmd: "./{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
+        cmd: "./{{ my_file }}.sh"
         chdir: "{{ retronas_root }}/scripts"
         executable: /bin/bash
         creates: "{{ retronas_root }}/bin/webone/webone"

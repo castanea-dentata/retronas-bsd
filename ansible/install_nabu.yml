@@ -45,9 +45,9 @@
       with_items: "{{ links }}"
 
     - name: "{{ my_name }} - Install"
-      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh 2>&1 | tee {{ retronas_root }}/log/{{ my_file }}.log"
+      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh"
       args:
         creates: "{{ retronas_root}} {{ my_dir }}/nabu.sh"
-    
+
     - ansible.builtin.import_role:
         name: retronas.role.system-config
