@@ -1,0 +1,78 @@
+---
+- hosts: localhost
+  gather_facts: true
+
+  vars:
+    my_name: "open_oscar_server"
+    my_file: "install_open_oscar_server"
+    my_dir: "/opt/open-oscar-server"
+    module_name: "open_oscar_server"
+
+    systemd_units:
+      - { name: "open-oscar-server", type: 'service', state: "started", enabled: "yes", restart: "yes", instance: "no" }
+
+    packages:
+      - curl
+
+    templates:
+      - { name: "{{ my_file }}.sh",         dest: "{{ retronas_root }}/scripts", mode: "0755" }
+      - { name: "open-oscar-server.service", dest: "/etc/systemd/system/" }
+
+    firewalld_rules:
+      - { zones: retro, service: retronas-open-oscar-server }
+
+    firewalld_templates:
+      - { name: retronas-open-oscar-server }
+
+    settings_env:
+      - { regex: "^export OSCAR_LISTENERS=LOCAL://.*:5190", line: "export OSCAR_LISTENERS=LOCAL://{{ retronas_net_retro_ip }}:5190" }
+      - { regex: "^export ICQ_LEGACY_UDP_LISTENER=.*:4000", line: "export ICQ_LEGACY_UDP_LISTENER={{ retronas_net_retro_ip }}:4000" }
+      - { regex: "^export DISABLE_AUTH=true", line: "export DISABLE_AUTH=false" }
+
+  tasks:
+
+    - name: "{{ my_name }} - Load RetroNAS config"
+      ansible.builtin.include_vars: retronas_vars.yml
+
+    - ansible.builtin.include_role:
+        name: "{{ iroles }}"
+      loop:
+        - retronas.role.package.latest
+        - retronas.role.paths
+        - retronas.role.templates
+        - retronas.role.firewalld.port
+      loop_control:
+        loop_var: "iroles"
+
+    - name: "{{ my_name }} - Install from source code"
+      ansible.builtin.shell: "{{ retronas_root }}/scripts/{{ my_file }}.sh"
+      args:
+        creates: "{{ my_dir }}/open_oscar_server"
+
+    - name: "{{ my_name }} - enable service(s)"
+      ansible.builtin.service:
+        name: "{{ item.name }}.{{ item.type }}"
+        state: "{{ item.state }}"
+        enabled: "{{ item.enabled }}"
+        daemon_reload: true
+      with_items: "{{ systemd_units }}"
+      notify: "{{ my_name }} - Restart service"
+
+    - name: "{{ my_name }} - configure defaults"
+      ansible.builtin.lineinfile:
+        path: "{{ my_dir }}/settings.env"
+        regexp: "{{ item.regex }}"
+        line: "{{ item.line }}"
+      with_items: "{{ settings_env }}"
+
+    - ansible.builtin.import_role:
+        name: retronas.role.system-config
+
+  handlers:
+
+    - name: "{{ my_name }} - Restart service"
+      ansible.builtin.service:
+        name: "{{ item.name }}.{{ item.type }}"
+        state: restarted
+        daemon_reload: true
+      with_items: "{{ systemd_units }}"

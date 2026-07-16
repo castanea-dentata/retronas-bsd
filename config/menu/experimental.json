@@ -106,15 +106,26 @@
               "args": ""
             },
             {
-                "index": "10",
-                "title": "hfsutils",
-                "description": "Install patched version of hfsutils", 
-                "id":"hfsutils",
-                "prompt": "",
-                "type": "install",
-                "group":"",
-                "command": "hfsutils",
-                "args": ""
+              "index": "10",
+              "title": "hfsutils",
+              "description": "Install patched version of hfsutils", 
+              "id":"hfsutils",
+              "prompt": "",
+              "type": "install",
+              "group":"",
+              "command": "hfsutils",
+              "args": ""
+            },
+            {
+              "index": "11",
+              "title": "open-oscar-server",
+              "description": "OSCAR Protocol Server",
+              "id": "open-oscar-server",
+              "prompt": "",
+              "type": "dialog",
+              "group": "",
+              "command": "open-oscar-server",
+              "args": ""
             }
         ]
     }
