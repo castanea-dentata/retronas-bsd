@@ -659,17 +659,6 @@
         "args": ""
       },
       {
-        "index": "62",
-        "title": "ras",
-        "description": "Retro AIM/ICQ Server",
-        "id": "retroaimserver",
-        "prompt": "",
-        "type": "dialog",
-        "group": "retroaimserver",
-        "command": "retroaimserver",
-        "args": ""
-      },
-      {
         "index": "63",
         "title": "rclone",
         "description": "rclone + webui",

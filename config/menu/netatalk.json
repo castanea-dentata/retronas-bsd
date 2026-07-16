@@ -96,17 +96,6 @@
                 "args": ""
             },
             {
-                "index":"98",
-                "title": "Legacy",
-                "description": "Install legacy versions of netatalk",
-                "id":"",
-                "prompt": "",
-                "type": "dialog",
-                "group":"",
-                "command": "netatalk-legacy",
-                "args": ""
-            },
-            {
                 "index":"99",
                 "title": "Documentation",
                 "description": "Read the service documentation",

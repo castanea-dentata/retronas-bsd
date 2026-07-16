@@ -52,6 +52,17 @@
                 "args": ""
             },
             {
+                "index": "60",
+                "title": "Deprecated",
+                "description": "Unsupported installers",
+                "id":"deprecated",
+                "prompt": "",
+                "type": "dialog",
+                "group":"",
+                "command": "deprecated",
+                "args": ""
+            },
+            {
                 "index": "98",
                 "title": "Update",
                 "description": "Update core RetroNAS features",

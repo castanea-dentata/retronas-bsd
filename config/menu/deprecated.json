@@ -1,0 +1,45 @@
+{
+    "menu": 
+    {
+        "title": "DEPRECATED",
+        "description": "WARNING these tools are UNSUPPORTED, older services we no longer support or have replaced, you can attempt to install these if you like however do not expect them to work or be fixed if broken",
+        "id":"deprecated",
+        "prompt": "Install",
+        "type": "menu",
+        "items": [
+            {
+              "index": "01",
+              "title": "Back",
+              "description": "Return to previous menu", 
+              "id":"",
+              "prompt": "",
+              "type": "menu",
+              "group":"",
+              "command": "EXIT_OK",
+              "args": ""
+            },
+            {
+              "index": "62",
+              "title": "ras",
+              "description": "Retro AIM/ICQ Server",
+              "id": "retroaimserver",
+              "prompt": "",
+              "type": "dialog",
+              "group": "retroaimserver",
+              "command": "retroaimserver",
+              "args": ""
+            },
+            {
+              "index":"98",
+              "title": "netatalk",
+              "description": "Install legacy versions of netatalk",
+              "id":"",
+              "prompt": "",
+              "type": "dialog",
+              "group":"",
+              "command": "netatalk-legacy",
+              "args": ""
+            }
+        ]
+    }
+}
