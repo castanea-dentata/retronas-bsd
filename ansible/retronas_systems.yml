@@ -326,7 +326,7 @@ system_map:
     pretty_name: TK2000
   - src: apple/appleiigs
     last: ''
-    mister: ''
+    mister: Apple-IIgs
     retropie: ''
     batocera: apple2gs
     recalbox: apple2gs
@@ -366,7 +366,7 @@ system_map:
     pretty_name: Apple III
   - src: apple/lisa
     last: ''
-    mister: ''
+    mister: Apple-Lisa
     retropie: ''
     batocera: ''
     recalbox: ''
@@ -403,7 +403,27 @@ system_map:
     replayfpgaarcade: ''
     retrodeck: macintosh
     romm: mac
-    pretty_name: Apple Machintosh
+    pretty_name: Apple Macintosh
+  - src: apple/macintoshlc
+    last: ''
+    mister: MACLC
+    retropie: ''
+    batocera: ''
+    recalbox: ''
+    retroarch: ''
+    ops2l: ''
+    ps3netsrv: ''
+    fspd: ''
+    emuelec: ''
+    smdb: ''
+    freestation: ''
+    analoguepocket: ''
+    emudeck: ''
+    igdb: ''
+    replayfpgaarcade: ''
+    retrodeck: ''
+    romm: ''
+    pretty_name: Apple Macintosh LC
   - src: apple/newton
     last: ''
     mister: ''
@@ -1880,7 +1900,7 @@ system_map:
     analoguepocket: c64
     emudeck: c64
     igdb: c64
-    replayfpgaarcade: c64
+    replayfpgaarcade: ''
     retrodeck: c64
     romm: c64
     pretty_name: Commodore 64
@@ -1940,7 +1960,7 @@ system_map:
     analoguepocket: ''
     emudeck: vic20
     igdb: vic-20
-    replayfpgaarcade: vic20
+    replayfpgaarcade: ''
     retrodeck: vic20
     romm: vic-20
     pretty_name: Commodore VIC20
@@ -3326,7 +3346,7 @@ system_map:
     pretty_name: ''
   - src: microsoft/msx2
     last: ''
-    mister: ''
+    mister: MSX2
     retropie: ''
     batocera: msx2
     recalbox: msx2
@@ -3622,7 +3642,7 @@ system_map:
     igdb: ''
     replayfpgaarcade: ''
     retrodeck: windows9x
-    romm: ''
+    romm: win9x
     pretty_name: Microsoft Windows 9x
   - src: microsoft/dos
     last: ''
@@ -4806,7 +4826,7 @@ system_map:
     pretty_name: Panic Playdate
   - src: panasonic/3do
     last: other/3do
-    mister: ''
+    mister: 3DO
     retropie: ''
     batocera: 3do
     recalbox: 3do
@@ -5489,7 +5509,7 @@ system_map:
     mister: ''
     retropie: ''
     batocera: ''
-    recalbox: ''
+    recalbox: stv
     retroarch: ''
     ops2l: ''
     ps3netsrv: ''
@@ -9422,8 +9442,8 @@ system_map:
     igdb: ''
     replayfpgaarcade: ''
     retrodeck: ''
-    romm: ''
-    pretty_name: ''
+    romm: steam
+    pretty_name: Steam
   - src: platform/thepowdertoy
     last: ''
     mister: ''
@@ -10148,7 +10168,7 @@ system_map:
     last: ''
     mister: ''
     retropie: ''
-    batocera: traider1
+    batocera: traider
     recalbox: tombraider
     retroarch: Tomb Raider
     ops2l: ''
@@ -10168,7 +10188,7 @@ system_map:
     last: ''
     mister: ''
     retropie: ''
-    batocera: traider2
+    batocera: ''
     recalbox: ''
     retroarch: ''
     ops2l: ''
@@ -11224,6 +11244,26 @@ system_map:
     retrodeck: ''
     romm: system-32
     pretty_name: Namco System 22
+  - src: namco/357_359
+    last: ''
+    mister: ''
+    retropie: ''
+    batocera: namco3xx
+    recalbox: ''
+    retroarch: ''
+    ops2l: ''
+    ps3netsrv: ''
+    fspd: ''
+    emuelec: ''
+    smdb: ''
+    freestation: ''
+    analoguepocket: ''
+    emudeck: ''
+    igdb: ''
+    replayfpgaarcade: ''
+    retrodeck: ''
+    romm: ''
+    pretty_name: Namco 357/359
   - src: soundic/sd2x0
     last: ''
     mister: ''
@@ -12386,3 +12426,23 @@ system_unsupported:
     retrodeck: ''
     romm: ''
     pretty_name: 'Theme Hospital'
+  - src: paprium
+    last: ''
+    mister: Paprium
+    retropie: ''
+    batocera: ''
+    recalbox: ''
+    retroarch: ''
+    ops2l: ''
+    ps3netsrv: ''
+    fspd: ''
+    emuelec: ''
+    smdb: ''
+    freestation: ''
+    analoguepocket: ''
+    emudeck: ''
+    igdb: ''
+    replayfpgaarcade: ''
+    retrodeck: ''
+    romm: ''
+    pretty_name: ''
