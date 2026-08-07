@@ -69,14 +69,14 @@
       content: |
         deb [signed-by={{ my_key }}] {{ my_repo }}/static/deb/release/ /
 
-    - ansible.builtin.include_role:
-        name: "{{ iroles }}"
-      loop:
-        - retronas.role.package.latest
-        - retronas.role.templates
-        - retronas.role.firewalld.ports
-      loop_control:
-        loop_var: "iroles"
+  - ansible.builtin.include_role:
+      name: "{{ iroles }}"
+    loop:
+      - retronas.role.package.latest
+      - retronas.role.templates
+      - retronas.role.firewalld.ports
+    loop_control:
+      loop_var: "iroles"
 
   - name: "{{ my_name }} - check for arm build"
     ansible.builtin.stat:
