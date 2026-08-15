@@ -6164,6 +6164,26 @@ system_map:
     retrodeck: ''
     romm: ''
     pretty_name: Sony PlayStation 3 (PSN)
+  - src: sony/playstation3/pkg
+    last: ''
+    mister: ''
+    retropie: ''
+    batocera: ''
+    recalbox: ''
+    retroarch: ''
+    ops2l: ''
+    ps3netsrv: PKG
+    fspd: ''
+    emuelec: ''
+    smdb: ''
+    freestation: ''
+    analoguepocket: ''
+    emudeck: ''
+    igdb: ''
+    replayfpgaarcade: ''
+    retrodeck: ''
+    romm: ''
+    pretty_name: Sony PlayStation 3 (PKG)
   - src: sony/playstation4
     last: ''
     mister: ''
