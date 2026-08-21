@@ -28,7 +28,7 @@
     systemd_units:
       - { name: "retronas-mister-dirs", type: 'service', state: "stopped", enabled: "no", restart: "no", instance: "no" }
       - { name: "retronas-mister-dirs", type: 'timer',   state: "stopped", enabled: "no", restart: "no", instance: "no" }
-    
+
     internal_symlinks:
       - { src: 'nintendo/gameandwatch',     dest: 'Game And Watch' }
       - { src: 'sega/gamegear',             dest: 'GameGear2P' }
@@ -40,6 +40,9 @@
       - { src: 'sega/saturn',               dest: 'Saturn_DualSDRAM' }
       - { src: 'sharp/x68000',              dest: 'X68000USERIO2' }
       - { src: 'other/intel_x86',           dest: 'ao486USERIO2' }
+
+    system_symlinks:
+      - { src: '{{ retronas_path }}/{{ system_key }}',           dest: '/media/fat' }
 
     dirs_only: false
     savedirs:
@@ -82,6 +85,13 @@
         dest: "{{ retronas_path }}/{{ system_key }}/{{ item.1 }}/{{ item.0.name }}"
         state: link
       loop: "{{ save_overrides|product(savedirs)|list }}"
+
+    - name: "{{ my_name }} - create system links"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      loop: "{{ system_symlinks }}"
 
     - ansible.builtin.import_role:
         name: retronas.role.templates
