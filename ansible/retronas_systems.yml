@@ -406,7 +406,7 @@ system_map:
     pretty_name: Apple Macintosh
   - src: apple/macintoshlc
     last: ''
-    mister: MACLC
+    mister: MacLC
     retropie: ''
     batocera: ''
     recalbox: ''
@@ -2884,6 +2884,26 @@ system_map:
     retrodeck: pc
     romm: ''
     pretty_name: IBM PCXT
+  - src: ibm/pcxt/ega
+    last: ''
+    mister: PCXT-EGA
+    retropie: ''
+    batocera: ''
+    recalbox: ''
+    retroarch: ''
+    ops2l: ''
+    ps3netsrv: ''
+    fspd: ''
+    emuelec: ''
+    smdb: ''
+    freestation: ''
+    analoguepocket: ''
+    emudeck: ''
+    igdb: ''
+    replayfpgaarcade: ''
+    retrodeck: ''
+    romm: ''
+    pretty_name: IBM PCXT EGA
   - src: ibm/pcjr
     last: ''
     mister: PCjr
@@ -4546,7 +4566,7 @@ system_map:
     pretty_name: Nintendo Super Game Boy (MSU1)
   - src: nintendo/virtualboy
     last: ''
-    mister: ''
+    mister: VirtualBoy
     retropie: ''
     batocera: virtualboy
     recalbox: virtualboy
