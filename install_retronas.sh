@@ -7,6 +7,7 @@ set -u
 # repo's origin on every single launch, so pointing it upstream will
 # destroy the FreeBSD patches. Change YOURUSER below.
 GITREPO='https://github.com/castanea-dentata/retronas-bsd.git'
+GITBRANCH='testing'
 FORCE=0
 TARGET=/usr/local/retronas-bsd
 
@@ -16,6 +17,7 @@ _usage() {
   echo "Usage $0" 
   echo "-h this help"
   echo "-o override git repo/branch to install from"
+  echo "-b override git branch to install (default: ${GITBRANCH})"
   echo "-f force re-installation (EXPERT)"
   exit 0
 }
@@ -38,6 +40,9 @@ do
     o)
       GITREPO="${OPTARG}"
       ;;
+    b)
+      GITBRANCH="${OPTARG}"
+      ;;
     f)
       FORCE=1
       ;;
@@ -48,6 +53,9 @@ done
 [ -f ${TARGET}/.git/config ] && [ $FORCE -eq 0 ] && echo "Existing installation pass -f to overwrite" && exit 1
 [ -f ${TARGET}/.git/config ] && [ $FORCE -eq 1 ] && echo "Installation exists, -f passed, removing" && rm -rf "${TARGET}/"
 
+
+echo "Downloading RetroNAS...from ${GITREPO} (branch ${GITBRANCH})"
+git clone -b "${GITBRANCH}" "$GITREPO" "${TARGET}"
 
 echo
 echo "Updating package catalogue..."
