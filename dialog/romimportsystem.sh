@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 cd ${DIDIR}
@@ -21,7 +21,7 @@ rn_import_system() {
             SYSTEM_ARR[$I]=${LINE[1]}
             ((++I))
         fi
-    done < <(/opt/retronas/scripts/romimport.sh -l)
+    done < <(/usr/local/retronas-bsd/scripts/romimport.sh -l)
 
   while true
   do
@@ -33,7 +33,7 @@ rn_import_system() {
       ;;
       [0-9][0-9])
         CLEAR
-        DROP_ROOT /opt/retronas/scripts/romimport.sh -t ${SYSTEM_ARR[10#$CHOICE]}
+        DROP_ROOT /usr/local/retronas-bsd/scripts/romimport.sh -t ${SYSTEM_ARR[10#$CHOICE]}
         PAUSE
       ;;
       *)

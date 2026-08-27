@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 
@@ -11,6 +11,6 @@ smbpasswd -e $USERNAME &> /dev/null
 if [ $? -eq 1 ]
 then
         # run the smbpasswd config
-        cd /opt/retronas/dialog/
+        cd /usr/local/retronas-bsd/dialog/
         bash retronas_password.sh
 fi

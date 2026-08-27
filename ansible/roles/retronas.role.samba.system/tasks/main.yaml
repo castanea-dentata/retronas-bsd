@@ -9,15 +9,15 @@
 - block:
   - name: "{{ my_name }} - configure includes file"
     ansible.builtin.ini_file:
-      path: /etc/samba/smb.conf
+      path: /usr/local/etc/smb4.conf
       section: "{{ system_key }}"
       option: "include"
-      value: "/etc/samba/retronas_{{ system_key }}.conf"
+      value: "/usr/local/etc/retronas_{{ system_key }}.conf"
 
   - name: "{{ my_name }} - configure retro shares"
     ansible.builtin.template:
       src: "retronas_system.conf.j2"
-      dest: /etc/samba/retronas_{{ system_key }}.conf
+      dest: /usr/local/etc/retronas_{{ system_key }}.conf
       owner: root
       group: root
       mode: "0644"

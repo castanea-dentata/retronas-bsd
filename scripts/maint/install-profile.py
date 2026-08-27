@@ -8,7 +8,7 @@ import subprocess
 from configparser import ConfigParser
 
 
-rn_dir = "/opt/retronas"
+rn_dir = "/usr/local/retronas-bsd"
 rn_ansible_runner = os.path.join(rn_dir, "lib/ansible_runner.sh")
 rn_section = "package"
 

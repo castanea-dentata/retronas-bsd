@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 
@@ -8,7 +8,7 @@ source ${LIBDIR}/common.sh
 # Get Available branches
 SELECT_BRANCH() {
   
-    cd /opt/retronas
+    cd /usr/local/retronas-bsd
 
     # remove deleted remote branches from output
     git fetch --prune origin &> /dev/null

@@ -2,15 +2,24 @@
 my_name: "Samba"
 my_file: ""  # required to clear out any play set var
 
+# FreeBSD ships Samba as a versioned package (no plain "samba" meta-package).
+# samba416 is the current ports default as of writing - if this install task
+# fails with a "no such package" error, run `pkg search samba4` on the box
+# and bump this to whatever's current.
+# avahi-app is the headless build of avahi (avoids pulling in X11/Gnome,
+# which the plain "avahi" package does).
 packages:
-  - avahi-daemon
-  - samba
-  - samba-vfs-modules
+  - avahi-app
+  - samba416
 
+# FreeBSD's Samba port runs a single samba_server rc.d service rather than
+# split smbd/nmbd daemons.
 my_services:
   - avahi-daemon
-  - smbd
-  - nmbd
+  - samba_server
+
+# FreeBSD's samba pkg reads /usr/local/etc/smb4.conf, not /etc/samba/smb.conf
+smb_conf_path: "/usr/local/etc/smb4.conf"
 
 config_opts:
   - { section: "global",    option: "min protocol",               value: "CORE"}
@@ -28,10 +37,10 @@ config_opts:
   - { section: "global",    option: "strict sync",                value: "no"}
   - { section: "global",    option: "sync always",                value: "no"}
   - { section: "global",    option: "deadtime",                   value: "1560"}
-  - { section: "retronas",  option: "include",                    value: "/etc/samba/retronas.conf"}
+  - { section: "retronas",  option: "include",                    value: "/usr/local/etc/retronas.conf"}
 
 templates:
-  - { name: "retronas.conf", dest: "/etc/samba" }
+  - { name: "retronas.conf", dest: "/usr/local/etc" }
 
 firewalld_rules:
   - { zone: "retro",  service: "samba" }

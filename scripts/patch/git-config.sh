@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 touch $HOME/.gitconfig
 git config list --global | grep -E "safe\.directory=*" &>/dev/null

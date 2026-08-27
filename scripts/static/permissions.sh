@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # This should mimic the old dialog and let the user select a folder
 #
 #set -x
 set -u
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 

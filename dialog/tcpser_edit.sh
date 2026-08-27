@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 MENU_NAME=tcpser-edit
@@ -25,7 +25,7 @@ rn_tcpser_edit() {
 
   [ $MODE == "VIRTUAL" ] && DEVICE=25232
 
-  TCPSER_CONFIG_PATH=/opt/retronas/etc/tcpser
+  TCPSER_CONFIG_PATH=/usr/local/retronas-bsd/etc/tcpser
   TCPSER_CONFIG=${TCPSER_CONFIG_PATH}/tcpser-${LISTEN}
 
   READ_MENU_TDESC "${MENU_NAME}"
@@ -49,7 +49,7 @@ rn_tcpser_write_envfile() {
 
   if [ "${#CHOICE[1]}" -gt 1 ]
   then
-    local TCPSER_CONFIG=/opt/retronas/etc/tcpser/tcpser-${CHOICE[1]}
+    local TCPSER_CONFIG=/usr/local/retronas-bsd/etc/tcpser/tcpser-${CHOICE[1]}
 
     [ ${#CHOICE[0]} -le 1 ] && DATA[0]=$DEVICE
     [ ${#CHOICE[2]} -le 1 ] && DATA[2]=$SPEED

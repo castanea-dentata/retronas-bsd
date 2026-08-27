@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #set -e
 
@@ -21,9 +21,9 @@ do
 done
 
 OUTPATH=/tmp/rtrn_inst_test
-KNOWN=/opt/retronas/scripts/maint/tests/test-installers.known
+KNOWN=/usr/local/retronas-bsd/scripts/maint/tests/test-installers.known
 
-cd /opt/retronas/ansible
+cd /usr/local/retronas-bsd/ansible
 [ ! -d ${OUTPATH} ] && mkdir -p $OUTPATH
 
 usage() {

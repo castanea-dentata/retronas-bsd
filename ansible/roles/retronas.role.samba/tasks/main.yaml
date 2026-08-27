@@ -10,7 +10,7 @@
 
 - name: "{{ my_name }} - configure samba config"
   ansible.builtin.ini_file:
-    path: /etc/samba/smb.conf
+    path: "{{ smb_conf_path }}"
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value }}"

@@ -7,14 +7,14 @@
 # needs to be cleaned up or replaced, just for testing
 #
 
-if [ ! -f /opt/retronas/retronas_deployed ] && [ ! -f /opt/retronas/retronas_running ]
+if [ ! -f /usr/local/retronas-bsd/retronas_deployed ] && [ ! -f /usr/local/retronas-bsd/retronas_running ]
 then
-    touch /opt/retronas/retronas_running
+    touch /usr/local/retronas-bsd/retronas_running
     /usr/bin/curl -so /tmp/install_retronas.sh https://raw.githubusercontent.com/retronas/retronas/main/install_retronas.sh
     /usr/bin/chmod a+x /tmp/install_retronas.sh
     /tmp/install_retronas.sh
 
-    cd /opt/retronas/ansible
+    cd /usr/local/retronas-bsd/ansible
 
     cp retronas_vars.yml.default retronas_vars.yml
 
@@ -24,7 +24,7 @@ then
     /usr/bin/ansible-playbook -vv install_cockpit-packages.yml
     #/usr/bin/ansible-playbook -vv install_cockpit-retronas.yml
 
-    rm /opt/retronas/retronas_running
-    touch /opt/retronas/retronas_deployed
+    rm /usr/local/retronas-bsd/retronas_running
+    touch /usr/local/retronas-bsd/retronas_deployed
 
 fi

@@ -1,10 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -u
 
-GITREPO='https://github.com/retronas/retronas.git'
+# NOTE: this MUST point at your fork, not upstream retronas/retronas.
+# retronas.sh re-runs `git reset --hard HEAD && git pull` against this
+# repo's origin on every single launch, so pointing it upstream will
+# destroy the FreeBSD patches. Change YOURUSER below.
+GITREPO='https://github.com/castanea-dentata/retronas-bsd.git'
 FORCE=0
-TARGET=/opt/retronas
+TARGET=/usr/local/retronas-bsd
 
 MYID=$( whoami )
 
@@ -46,20 +50,30 @@ done
 
 
 echo
-echo "Updating repo cache..."
-apt update
+echo "Updating package catalogue..."
+pkg update
 
 echo
 echo "Installing necessary tools..."
-apt install -y ansible git dialog jq pandoc lynx sudo
+# NOTE: FreeBSD's dialog(1) build is packaged as "cdialog" (the binary it
+# installs is still literally named `dialog`, so nothing downstream needs
+# to change). bsddialog, which replaced dialog(1) in FreeBSD base, is
+# explicitly NOT a drop-in replacement per FreeBSD's own UPDATING notes -
+# cdialog is the officially recommended path for exactly this situation.
+# hs-pandoc pulls in a full Haskell toolchain (~200MB); drop it here if you'd
+# rather skip that and just accept that documentation rendering won't work
+# until installed separately.
+pkg install -y sysutils/ansible git cdialog jq hs-pandoc lynx sudo
 
 if [ ! -f ${TARGET}/.git/config ]
 then
   echo
   echo "Downloading RetroNAS...from ${GITREPO}"
-  cd /opt
-  git clone "$GITREPO"
-  chmod a+x /opt/retronas/retronas.sh
+  # NOTE: cloning explicitly into ${TARGET}. Upstream relied on `cd /opt &&
+  # git clone <repo>` producing /opt/retronas from the repo name, which no
+  # longer works now the install dir is named retronas-bsd.
+  git clone "$GITREPO" "${TARGET}"
+  chmod a+x "${TARGET}/retronas.sh"
 
   if [ $? -eq 0 ]
   then
@@ -72,7 +86,7 @@ then
     fi
 
     #installing a simple starup script
-    cp /opt/retronas/dist/retronas /usr/local/bin/retronas
+    cp "${TARGET}/dist/retronas" /usr/local/bin/retronas
     chmod a+x /usr/local/bin/retronas
 
     echo

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 export ANDCFG=${ANDIR}/retronas_vars.yml.default

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -u
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 PBIN=/usr/bin/pandoc
 LBIN=/usr/bin/lynx

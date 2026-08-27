@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 MENU_NAME=update-wifi-password
@@ -26,7 +26,7 @@ rn_wifi_password() {
     if [ "${PASS_ONE}" == "${PASS_TWO}" ]
     then
       CLEAR
-      /opt/retronas/scripts/static/wifi-update-passwd.sh "${PASS_ONE}"
+      /usr/local/retronas-bsd/scripts/static/wifi-update-passwd.sh "${PASS_ONE}"
       PAUSE
     else
       RN_LOG "Passwords do not match"

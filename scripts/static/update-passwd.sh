@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -u
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 
@@ -28,7 +28,7 @@ fi
 ATALK_SYSTEMD=$(systemctl show atalkd.service --full --property FragmentPath --value)
 if [ ! -z "${ATALK_SYSTEMD}" ] && [ -f "${ATALK_SYSTEMD}" ]
 then
-    ATALKDIR=/opt/retronas/bin/netatalk2x
+    ATALKDIR=/usr/local/retronas-bsd/bin/netatalk2x
     echo "Updating AppleTalk password for $USERNAME"
     if [ -f ${ATALKDIR}/etc/netatalk/afppasswd ]
     then
@@ -49,7 +49,7 @@ then
 fi
 
 # RASCSI
-if [ -f /opt/retronas/bin/RASCSI/rascsi ]
+if [ -f /usr/local/retronas-bsd/bin/RASCSI/rascsi ]
 then 
     echo "Updating RASCSI password for $USERNAME"
     RASCSI_PASSWD=/etc/rascsi_passwd

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MYURL="http://$(ip -4 -br a | awk '!/127/{sub(/\/[0-9].+$/, ""); print $3}')/files/atarist/roms"
 umask 002

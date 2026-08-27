@@ -99,7 +99,7 @@
 #
 #   Authentication Methods:
 #     -uampath <path>  Use this path to look for User Authentication Modules.
-#                      (default: /opt/retronas/bin/netatalk2x/etc/netatalk/uams)
+#                      (default: /usr/local/retronas-bsd/bin/netatalk2x/etc/netatalk/uams)
 #     -uamlist <a,b,c> Comma-separated list of UAMs.
 #                      (default: uams_dhx.so,uams_dhx2.so)
 #
@@ -125,7 +125,7 @@
 #   Password Options:
 #     -[no]savepassword   [Don't] Allow clients to save password locally
 #     -passwdfile <path>  Use this path to store Randnum passwords.
-#                         (Default: /opt/retronas/bin/netatalk2x/etc/netatalk/afppasswd. The only other
+#                         (Default: /usr/local/retronas-bsd/bin/netatalk2x/etc/netatalk/afppasswd. The only other
 #                         useful value is ~/.passwd. See 'man afppasswd'
 #                         for details.)
 #     -passwdminlen <#>   minimum password length. may be ignored.
@@ -135,14 +135,14 @@
 #
 #   AppleVolumes files:
 #     -defaultvol <path>  Specifies path to AppleVolumes.default file
-#                         (default /opt/retronas/bin/netatalk2x/etc/netatalk/AppleVolumes.default,
+#                         (default /usr/local/retronas-bsd/bin/netatalk2x/etc/netatalk/AppleVolumes.default,
 #                         same as -f on command line)
 #     -systemvol <path>   Specifies path to AppleVolumes.system file
-#                         (default /opt/retronas/bin/netatalk2x/etc/netatalk/AppleVolumes.system,
+#                         (default /usr/local/retronas-bsd/bin/netatalk2x/etc/netatalk/AppleVolumes.system,
 #                         same as -s on command line)
 #     -[no]uservolfirst   [Don't] read the user's ~/AppleVolumes or
 #                         ~/.AppleVolumes before reading
-#                         /opt/retronas/bin/netatalk2x/etc/netatalk/AppleVolumes.default
+#                         /usr/local/retronas-bsd/bin/netatalk2x/etc/netatalk/AppleVolumes.default
 #                         (same as -u on command line)
 #     -[no]uservol        [Don't] Read the user's volume file
 #     -closevol           Immediately unmount volumes removed from

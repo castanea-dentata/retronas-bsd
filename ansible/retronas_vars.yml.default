@@ -1,7 +1,7 @@
 retronas_path: "/data/retronas"
 retronas_user: "retronas"
 retronas_group: "retronas"
-retronas_root: "/opt/retronas"
+retronas_root: "/usr/local/retronas-bsd"
 retronas_net_retro_interface: "eth0"
 retronas_net_retro_ip: "10.99.1.1"
 retronas_net_retro_subnet: "23"

@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_CONFIG=/opt/retronas/config/retronas.cfg
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 MENU_NAME=tcpser-service

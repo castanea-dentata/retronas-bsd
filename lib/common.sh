@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -u
 
-export SC="systemctl --no-pager --full"
+## historically systemctl on Linux; FreeBSD dispatches via service(8)/sysrc(8)
+## directly inside RN_SYSTEMD_* below instead of a single wrapped command.
 
 ###############################################################################
 #
@@ -25,11 +26,11 @@ RN_LOG() {
 CHECK_PACKAGE_CACHE() {
     case $1 in
         *)
-            # check if apt was updated in the last 24 hours
-            if find /var/cache/apt -maxdepth 1 -type f -mtime -1 -exec false {} +
+            # check if the pkg repo catalogue was refreshed in the last 24 hours
+            if find /var/db/pkg -maxdepth 1 -name 'repo-*.sqlite' -mtime -1 -exec false {} +
             then
-                echo "APT repositories are old, syncing..."
-                apt update
+                echo "pkg repository catalogue is old, syncing..."
+                pkg update
             fi
             ;;
     esac
@@ -311,7 +312,7 @@ EXEC_SCRIPT() {
 
     CLEAR
     shift
-    /opt/retronas/lib/script_runner.sh "${SCRIPT}" $*
+    /usr/local/retronas-bsd/lib/script_runner.sh "${SCRIPT}" $*
 
     cd ${DIDIR}
     unset SCRIPT
@@ -344,7 +345,7 @@ RN_INSTALL_EXECUTE() {
     CHECK_PACKAGE_CACHE
 
     CLEAR
-    /opt/retronas/lib/ansible_runner.sh "${PLAYBOOK}"
+    /usr/local/retronas-bsd/lib/ansible_runner.sh "${PLAYBOOK}"
     PAUSE
 
     #cd ${ANDIR}
@@ -361,7 +362,7 @@ RN_DOCUMENTATION() {
     local DOCUMENTATION=$1
 
     CLEAR
-    /opt/retronas/lib/markup_runner.sh "${DOCUMENTATION}"
+    /usr/local/retronas-bsd/lib/markup_runner.sh "${DOCUMENTATION}"
 
     cd ${DIDIR}
     unset DOCUMENTATION
@@ -398,7 +399,12 @@ RN_SYSTEMD_STATUS() {
 # SYSTEMD enable
 #
 RN_SYSTEMD_ENABLE() {
-    RN_SYSTEMD "${1}" "enable"
+    # FreeBSD's service(8) has no "enable" subcommand - it's an rc.conf var,
+    # set with sysrc(8). This assumes rcvar == "<name-with-hyphens-as-
+    # underscores>_enable", which holds for the services managed so far
+    # (e.g. avahi-daemon -> avahi_daemon_enable). If a future service
+    # breaks that pattern, check its real rcvar with: service <name> rcvar
+    RN_SERVICE_STATUS "sysrc ${1//-/_}_enable=YES"
 }
 
 #
@@ -419,7 +425,7 @@ RN_SYSTEMD_RESTART() {
 # SYSTEMD disable
 #
 RN_SYSTEMD_DISABLE() {
-    RN_SYSTEMD "${1}" "disable"
+    RN_SERVICE_STATUS "sysrc ${1//-/_}_enable=NO"
 }
 
 #
@@ -436,15 +442,20 @@ RN_SYSTEMD() {
     local SERVICE="$1"
     local COMMAND="${2:-status}"
 
-    RN_SERVICE_STATUS "${SC} ${COMMAND} ${SERVICE}"
+    RN_SERVICE_STATUS "service ${SERVICE} ${COMMAND}"
 
 }
 
 #
 # JOURNAL follow
 #
+# FreeBSD has no journald/journalctl. Services log to syslog (or their own
+# file under /var/log), so this greps the general message log for the
+# service name instead. Not every service tags its syslog lines with its
+# rc.d name, so this may need a per-service log path override later.
+#
 RN_JOURNAL_FOLLOW() {
-    journalctl --follow -u "${1}"
+    tail -f /var/log/messages | grep --line-buffered "${1}"
 }
 
 #

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo ""
 echo "litch download purchases ..."
 echo ""
@@ -6,4 +6,4 @@ echo ""
 mkdir -p ~/.litch 2>/dev/null
 cd ~/.litch
 
-/opt/retronas/bin/litch/litch.py --download-purchases --content-path {{ retronas_path }}/itchio
+/usr/local/retronas-bsd/bin/litch/litch.py --download-purchases --content-path {{ retronas_path }}/itchio

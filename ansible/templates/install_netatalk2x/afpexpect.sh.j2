@@ -3,7 +3,7 @@ set timeout -1
 set USERNAME [lindex $argv 0]
 set PASSWORD [lindex $argv 1]
 
-spawn /opt/retronas/bin/netatalk2x/bin/afppasswd -a $USERNAME
+spawn /usr/local/retronas-bsd/bin/netatalk2x/bin/afppasswd -a $USERNAME
 
 expect "Enter NEW AFP password:"
 send "$PASSWORD\r"

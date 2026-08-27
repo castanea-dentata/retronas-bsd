@@ -1,5 +1,5 @@
-#!/bin/bash
-_CONFIG=/opt/retronas/config/retronas.cfg
+#!/usr/bin/env bash
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 
@@ -10,7 +10,7 @@ CLEAR
 ## Script Globals
 RNUDIR=$( getent passwd | grep ^${OLDRNUSER}\: | awk -F ':' '{print $6}' )
 RNUGOGREPO=$RNUDIR/.gogrepo
-GOGREPO="/opt/retronas/bin/gogrepo/gogrepo.py"
+GOGREPO="/usr/local/retronas-bsd/bin/gogrepo/gogrepo.py"
 GOGDEPO="{{ retronas_path }}/gog"
 GOGMAN=${RNUDIR}/.gogrepo/gog-manifest.dat
 

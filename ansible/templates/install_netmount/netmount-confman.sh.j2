@@ -1,10 +1,10 @@
-#!/bin/bash
-_CONFIG=/opt/retronas/config/retronas.cfg
+#!/usr/bin/env bash
+_CONFIG=/usr/local/retronas-bsd/config/retronas.cfg
 source $_CONFIG
 source ${LIBDIR}/common.sh
 CLEAR
 
-python3 /opt/retronas/scripts/netmount-confman.py
+python3 /usr/local/retronas-bsd/scripts/netmount-confman.py
 
 systemctl daemon-reload
 

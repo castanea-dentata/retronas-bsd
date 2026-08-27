@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo ""
 echo "Downloading/updating games..."
 echo ""
@@ -6,4 +6,4 @@ echo ""
 mkdir -p ~/.gogrepo 2>/dev/null
 cd ~/.gogrepo
 
-/opt/retronas/bin/gogrepo/gogrepo.py download ${@} "{{ retronas_path }}/gog"
+/usr/local/retronas-bsd/bin/gogrepo/gogrepo.py download ${@} "{{ retronas_path }}/gog"

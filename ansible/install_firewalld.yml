@@ -41,7 +41,7 @@
     - name: "{{ my_name }} - install related ansible collections"
       ansible.builtin.command:
         cmd: /usr/bin/ansible-galaxy collection install {{ item.collection }}
-        creates: /opt/retronas/ansible/collections/ansible_collections/{{ item.creates }}
+        creates: /usr/local/retronas-bsd/ansible/collections/ansible_collections/{{ item.creates }}
       with_items: "{{ acollections }}"
 
     - ansible.builtin.import_role:
